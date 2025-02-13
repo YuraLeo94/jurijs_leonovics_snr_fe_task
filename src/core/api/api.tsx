@@ -9,7 +9,7 @@ export const fetchCurrencies = async (
   try {
     const response = await axios.get(apiUrl);
     return dataMapping(response.data);
-  } catch (error) {
+  } catch {
     throw new Error(FETCH_DATA_GENERIC_ERROR_MESSAGE);
   }
 };

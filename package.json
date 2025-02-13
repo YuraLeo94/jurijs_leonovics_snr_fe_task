@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint ./src/**/*.tsx ./src/**/*.ts",
+    "lint:fix": "eslint --fix ./src/**/*.tsx ./src/**/*.ts",
     "test": "jest",
     "test:watch": "jest --watch"
   },
