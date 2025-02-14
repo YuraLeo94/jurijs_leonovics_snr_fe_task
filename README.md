@@ -4,6 +4,14 @@
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+# To run tests, use the command below:
+
+`npm run test`
+For a single test, use: `npx jest --testPathPattern=[TestName].test.tsx`
+
+Note:
+The API endpoint `/currencies` wasn't working, so dummy data was used as a workaround.
+
 ## Getting Started
 
 First, run the development server:
