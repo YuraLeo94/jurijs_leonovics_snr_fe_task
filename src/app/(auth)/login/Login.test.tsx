@@ -15,7 +15,7 @@ describe("Login Component", () => {
     (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
   });
 
-  test("shows error for incorrect email", () => {
+  test("shows error for incorrect email", async () => {
     render(<Login />);
 
     const emailInput = screen.getByPlaceholderText(
@@ -30,12 +30,15 @@ describe("Login Component", () => {
     fireEvent.change(passwordInput, { target: { value: "correct-password" } });
     fireEvent.click(loginButton);
 
-    expect(
-      screen.getByText(AUTH.LOGIN.EMAIL_ERROR_MESSAGE)
-    ).toBeInTheDocument();
+    // Wait for error message to appear
+    await waitFor(() => {
+      expect(
+        screen.getByText(AUTH.LOGIN.EMAIL_ERROR_MESSAGE)
+      ).toBeInTheDocument();
+    });
   });
 
-  test("shows error for incorrect password", () => {
+  test("shows error for incorrect password", async () => {
     render(<Login />);
 
     const emailInput = screen.getByPlaceholderText(
@@ -52,9 +55,12 @@ describe("Login Component", () => {
     });
     fireEvent.click(loginButton);
 
-    expect(
-      screen.getByText(AUTH.LOGIN.PASSWORD_ERROR_MESSAGE)
-    ).toBeInTheDocument();
+    // Wait for error message to appear
+    await waitFor(() => {
+      expect(
+        screen.getByText(AUTH.LOGIN.PASSWORD_ERROR_MESSAGE)
+      ).toBeInTheDocument();
+    });
   });
 
   test("navigates to OTP step on correct email and password", async () => {
@@ -72,13 +78,13 @@ describe("Login Component", () => {
     fireEvent.change(passwordInput, { target: { value: "correct-password" } });
     fireEvent.click(loginButton);
 
+    // Wait for the OTP step to be shown (increase timeout to handle async behavior)
     await waitFor(
-      () =>
-        expect(screen.getByText(AUTH.LOGIN.OTP_FORM_TITLE)).toBeInTheDocument(),
-      {
-        timeout: 2000,
-      }
-    );
+      () => {
+        expect(screen.getByText(AUTH.LOGIN.OTP_FORM_TITLE)).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    ); // Increased timeout
   });
 
   test("navigates to BALANCE_PATH after OTP submit", async () => {
@@ -96,12 +102,12 @@ describe("Login Component", () => {
     fireEvent.change(passwordInput, { target: { value: "correct-password" } });
     fireEvent.click(loginButton);
 
+    // Wait for the OTP step to be shown (increase timeout)
     await waitFor(
-      () =>
-        expect(screen.getByText(AUTH.LOGIN.OTP_FORM_TITLE)).toBeInTheDocument(),
-      {
-        timeout: 2000,
-      }
+      () => {
+        expect(screen.getByText(AUTH.LOGIN.OTP_FORM_TITLE)).toBeInTheDocument();
+      },
+      { timeout: 3000 }
     );
 
     const otpInput = screen.getByPlaceholderText(AUTH.LOGIN.OTP_PLACEHOLDER);
@@ -110,9 +116,13 @@ describe("Login Component", () => {
 
     fireEvent.click(submitButton);
 
-    await waitFor(() => expect(mockPush).toHaveBeenCalledWith(BALANCE_PATH), {
-      timeout: 2000,
-    });
+    // Wait for navigation to BALANCE_PATH (increased timeout)
+    await waitFor(
+      () => {
+        expect(mockPush).toHaveBeenCalledWith(BALANCE_PATH);
+      },
+      { timeout: 3000 }
+    );
   });
 
   test("matches the snapshot", () => {

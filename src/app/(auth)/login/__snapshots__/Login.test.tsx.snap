@@ -13,23 +13,26 @@ exports[`Login Component matches the snapshot 1`] = `
       >
         Login
       </h2>
-      <input
-        class="border p-2 rounded w-full mb-2"
-        placeholder="Email"
-        type="email"
-        value=""
-      />
-      <input
-        class="border p-2 rounded w-full mb-2"
-        placeholder="Password"
-        type="password"
-        value=""
-      />
-      <button
-        class="bg-blue-500 text-white p-2 mt-2 rounded w-full hover:bg-blue-700"
-      >
-        Next
-      </button>
+      <form>
+        <input
+          class="border p-2 rounded w-full mb-2"
+          name="email"
+          placeholder="Email"
+          type="email"
+        />
+        <input
+          class="border p-2 rounded w-full mb-2"
+          name="password"
+          placeholder="Password"
+          type="password"
+        />
+        <button
+          class="p-2 mt-2 rounded w-full text-white bg-blue-500 hover:bg-blue-700"
+          type="submit"
+        >
+          Next
+        </button>
+      </form>
     </div>
   </div>
 </div>
